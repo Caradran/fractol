@@ -6,58 +6,22 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:50:07 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/07 21:31:48 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/13 22:04:24 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "frac.h"
-/*
-int		ft_mandelbrot_iter(t_cmpl z, float x, float y, int count)
-{
-	double tmp;
 
-	tmp = z.x * z.x - z.y * z.y + x;
-	z.y = 2 * z.x * z.y + y;
-	z.x = tmp;
-	if (z.x * z.x + z.y * z.y > 2 || count > (1024))
-		return (count);
+int		ft_init_env(t_env *env, char **av)
+{
+	if (!(env->color = ft_palette1(0, 0xff0000, 0xffff00, 0xff0000)))
+		return (0);
+	if (!ft_strcmp("Julia", av[1]))
+		env->frac = 2;
+	else if (!ft_strcmp("Mandelbrot", av[1]))
+		env->frac = 1;
 	else
-		return (ft_mandelbrot_iter(z, x, y, count + 1));
-}
-
-t_env	ft_mandel(double zoom, t_cmpl z, t_env env, int color)
-{
-	int		y;
-	int		x;
-	int		*tab;
-
-	(void)color;
-	if (!(tab = ft_palette1(0,0,0,0)))
-		return (env);
-	y = 0;
-	while (y < WIN_H)
-	{
-		x = 0;
-		while (x < WIN_L)
-		{
-			env.simg[y * WIN_L + x] = tab[ft_mandelbrot_iter(
-					ft_cmpl_create_alg(0, 0),
-					(float)(x - WIN_L / 2 + z.x * zoom) / ((WIN_L / 4) * zoom),
-					(float)(y - WIN_H / 2 + z.y * zoom) / ((WIN_H / 4) * zoom),
-					0) / 2];
-			++x;
-		}
-		++y;
-	}
-	ft_memdel((void**)&tab);
-	return (env);
-}*/
-
-void	ft_init_env(t_env *env, int ac, char **av)
-{
-	if (!(env->color = ft_palette1(0, 0, 0xffffff, 0)))
-		return ;
-	ft_putendl("1");
+		return (0);
 	env->zoom = 1;
 	env->center = ft_cmpl_create_alg(0, 0);
 	env->mlx = mlx_init();
@@ -65,18 +29,33 @@ void	ft_init_env(t_env *env, int ac, char **av)
 	env->pimg = mlx_new_image(env->mlx, WIN_L, WIN_H);
 	env->simg = (int *)mlx_get_data_addr(env->pimg, &(env->bpp), &(env->s_l),
 			&(env->endian));
+	return (1);
+}
+
+int		ft_error(int a)
+{
+	if (a == 0)
+		write(0, "usage : fractol nomfractal [palette]\n", 37);
+	else if (a == 1)
+		write(0, "error\n", 6);
+	return (0);
 }
 
 int		main(int ac, char **av)
 {
 	t_env	env;
 
-	ft_putendl("0");
-	ft_init_env(&env, ac, av);
-	ft_mandel_mult(&env);
-	ft_putendl("10");
+	if (ac < 1)
+		return (ft_error(0));
+	if (!ft_init_env(&env, av))
+		return (ft_error(1));
+	if (env.frac == 2)
+		ft_julia_mult(&env);
+	if (env.frac == 1)
+		ft_mandel_mult(&env);
 	mlx_put_image_to_window(NULL, env.win, (char *)env.pimg, 0, 0);
-	ft_putendl("11");
+	if (env.frac == 2)
+		mlx_hook(env.win, 6, (1L<<6), ft_mouse, (void*)&env);
 	mlx_key_hook(env.win, ft_key, (void*)&env);
 	mlx_loop(env.mlx);
 }

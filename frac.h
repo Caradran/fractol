@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 11:55:02 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/07 21:39:17 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/13 22:10:12 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FRAC_H
 
 # include <math.h>
-# include "../Fils_de_fer/minilibx_macos/mlx.h"
+# include "./minilibx_macos/mlx.h"
 # include "libft/libft.h"
 # include <pthread.h>
 # include <stdlib.h>
@@ -23,10 +23,10 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 
-# define WIN_L 2560
-# define WIN_H 1395
-# define ITERATIONS 8192
-# define NB_COL 256
+# define WIN_L 1000
+# define WIN_H 1000
+# define ITERATIONS 128
+# define NB_COL 64
 # define THREADS 256
 
 typedef struct		s_cmpl
@@ -50,7 +50,9 @@ typedef struct		s_env
 	int		bpp;
 	int		s_l;
 	int		endian;
-	double		zoom;
+	double	zoom;
+	int		frac;
+	t_mand	julia;
 	t_cmpl	center;
 }					t_env;
 typedef struct		s_env_th
@@ -59,7 +61,10 @@ typedef struct		s_env_th
 	int		*color;
 	int		part;
 }					t_env_th;
+int					ft_mouse(int x, int y, void *params);
 void				ft_mandel_mult(t_env *env);
+void				ft_julia_mult(t_env	*env);
+t_mand				ft_mand_th_iter(t_cmpl a, t_mand b);
 int					*ft_color_smooth(int a, int b);
 void				ft_memncat(void *dst, void *src, size_t d, size_t n);
 int					*ft_palette1(int j, int c1, int c2, int c3);
