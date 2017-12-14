@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 22:28:56 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/13 21:17:43 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/14 22:17:52 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,10 @@ void	*ft_mand_th(void *arg)
 			tmp->env->simg[start] = 0;
 		else
 		{
-			c.iter = (int)floor(c.iter * (log(c.iter) / log (ITERATIONS)));
-			tmp->env->simg[start ] = tmp->env->color[(int)c.iter % (2 * NB_COL)];
+			c.iter = 1 + (int)floor(c.iter * (log(c.iter) / log (ITERATIONS)));
+			tmp->env->simg[start ] = tmp->env->color[(int)c.iter % (2 * NB_COL + 1)];
 /*			c.iter = c.iter + (log(log(ITERATIONS * ITERATIONS)) -
 							log(log(c.x * c.x + c.y * c.y))) / log(2);*/
-			tmp->env->simg[start] = tmp->env->color[(int)floor(c.iter) % NB_COL * 2];
 		}
 	}
 	return (NULL);
