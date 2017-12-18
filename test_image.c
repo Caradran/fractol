@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:50:07 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/14 20:55:43 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/18 17:03:41 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_init_env(t_env *env, char **av)
 {
-	if (!(env->color = ft_palette1(0x000000, 0xff0000, 0x000000)))
+	if (!(env->color = ft_palette1(0xff0000, 0xffff00, 0xff0000)))
 		return (0);
 	if (!ft_strcmp("Julia", av[1]))
 		env->frac = 1;
@@ -24,6 +24,7 @@ int		ft_init_env(t_env *env, char **av)
 		return (0);
 	env->zoom = 1;
 	env->center = ft_cmpl_create_alg(0, 0);
+	env->pow = 3;
 	env->flag = 1;
 	env->flagcol = 0;
 	env->mlx = mlx_init();
@@ -53,8 +54,8 @@ int		main(int ac, char **av)
 		return (ft_error(1));
 	ft_draw(&env);
 	mlx_loop_hook(env.mlx, ft_colorroll, (void*)&env);
-	mlx_hook(env.win, 6, (1L<<6), ft_mouse, (void*)&env);
-	mlx_mouse_hook(env.win, ft_mouse_key, (void*)&env); 
+	mlx_hook(env.win, 6, (1L << 6), ft_mouse, (void*)&env);
+	mlx_mouse_hook(env.win, ft_mouse_key, (void*)&env);
 	mlx_key_hook(env.win, ft_key, (void*)&env);
 	mlx_loop(env.mlx);
 }

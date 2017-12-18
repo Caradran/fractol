@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:12:47 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/07 17:46:20 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/17 15:36:37 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_hex_atoi(char *str)
 	}
 	while ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'A' && str[i] <= 'F'))
 	{
-		result = result * 16 +  str[i] - (ft_isalpha(str[i]) ? 'A' - 10 : '0');
+		result = result * 16 + str[i] - (ft_isalpha(str[i]) ? 'A' - 10 : '0');
 		i++;
 	}
 	return (result);

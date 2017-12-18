@@ -6,12 +6,12 @@
 #    By: cbesse <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:59:01 by cbesse            #+#    #+#              #
-#    Updated: 2017/12/14 22:10:29 by esuits           ###   ########.fr        #
+#    Updated: 2017/12/18 21:51:34 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
-SRC = julia.c test_image.c ft_color.c ft_complexe.c multith.c ft_hex_atoi.c ft_event.c ft_draw.c
+SRC = julia.c test_image.c ft_color.c ft_complexe.c multith.c ft_hex_atoi.c ft_event.c ft_draw.c pow_mandel.c ship.c perpendic.c
 OBJ = $(SRC:.c=.o)
 FRAME = -lmlx -framework OpenGL -framework AppKit
 LIB = libft.a

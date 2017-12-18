@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 11:55:02 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/14 22:08:33 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/18 22:00:14 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define WIN_L 1300
 # define WIN_H 1300
-# define ITERATIONS 128
+# define ITERATIONS 64
 # define NB_COL 32
 # define THREADS 256
 
@@ -36,9 +36,9 @@ typedef struct		s_cmpl
 }					t_cmpl;
 typedef struct		s_mand
 {
-	double iter;
 	double x;
 	double y;
+	double iter;
 }					t_mand;
 typedef struct		s_env
 {
@@ -52,6 +52,7 @@ typedef struct		s_env
 	int		endian;
 	double	zoom;
 	int		frac;
+	int		pow;
 	int		flag;
 	int		flagcol;
 	t_mand	julia;
@@ -67,8 +68,15 @@ void				ft_draw(t_env *env);
 int					ft_mouse(int x, int y, void *params);
 int					ft_mouse_key(int button, int x, int y, void *params);
 void				ft_mandel_mult(t_env *env);
-void				ft_julia_mult(t_env	*env);
+void				ft_julia_mult(t_env *env);
+void				ft_julia_pow_mult(t_env *env);
+void				ft_perpendic_mult(t_env *env);
+void				ft_mand_pow_mult(t_env *env);
+void				ft_julia_perpendic_mult(t_env *env);
+void				ft_julia_ship_mult(t_env *env);
+void				ft_ship_mult(t_env *env);
 t_mand				ft_mand_th_iter(t_cmpl a, t_mand b);
+t_mand				ft_mand_pow(t_cmpl a, t_mand b, int i);
 int					*ft_color_smooth(int a, int b);
 void				ft_memncat(void *dst, void *src, size_t d, size_t n);
 int					*ft_palette1(int c1, int c2, int c3);

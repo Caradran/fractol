@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:13:13 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/14 20:45:05 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/18 22:29:11 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_key(int keycode, void *params)
 	if (keycode == 15 || keycode == 48)
 	{
 		if (keycode == 48)
-			tmp->frac = (tmp->frac + 1) % 2;
+			tmp->frac = (tmp->frac + 1) % 8;
 		tmp->zoom = 1;
 		tmp->center = ft_cmpl_create_alg(0, 0);
 		ft_draw(tmp);
@@ -77,9 +77,9 @@ int		ft_key(int keycode, void *params)
 		ft_deplace(tmp, keycode, 3000, 0);
 		ft_draw(tmp);
 	}
-	ft_changecol(keycode, tmp);
 	ft_putnbr(keycode);
-	ft_putchar('\n');
+	ft_putchar(' ');
+	ft_changecol(keycode, tmp);
 	return (0);
 }
 
@@ -87,15 +87,14 @@ int		ft_mouse(int x, int y, void *params)
 {
 	t_env	*env;
 
-	env  = (t_env*)params;
-	if (!(env->flag) || (env->frac != 1))
+	env = (t_env*)params;
+	if (!(env->flag) || (env->frac != 1 && env->frac != 3 && env->frac != 5
+				&& env->frac != 7))
 		return (0);
-	env->julia.x =  (x  - WIN_L / 2) / (float)(WIN_L / 2);
-	env->julia.y =  (y  - WIN_H / 2) / (float)(WIN_H / 2);
-	printf("%f, %f\n", env->julia.x, env->julia.y);
+	env->julia.x = (x - WIN_L / 2) / (float)(WIN_L / 2);
+	env->julia.y = (y - WIN_H / 2) / (float)(WIN_H / 2);
 	env->julia.iter = 0;
-	ft_julia_mult(env);
-	mlx_put_image_to_window(NULL, env->win, (char*)env->pimg, 0 , 0);
+	ft_draw(env);
 	return (0);
 }
 
@@ -103,8 +102,7 @@ int		ft_mouse_key(int button, int x, int y, void *params)
 {
 	t_env	*env;
 
-	env = (t_env*) params;
-	printf("%d\n", env->frac);
+	env = (t_env*)params;
 	x -= WIN_L / 2;
 	y -= WIN_H / 2;
 	if (button == 5)

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 22:28:56 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/14 22:17:52 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/18 17:39:58 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ t_mand	ft_mand_th_iter(t_cmpl z, t_mand c)
 	while (++c.iter < ITERATIONS)
 	{
 		if (z.x * z.x + z.y * z.y > 4)
-		{
-			c.x = z.x;
-			c.y = z.y;
 			return (c);
-		}
 		tmp = z.x * z.x - z.y * z.y + c.x;
 		z.y = 2 * z.x * z.y + c.y;
 		z.x = tmp;
@@ -57,61 +53,21 @@ void	*ft_mand_th(void *arg)
 	end = ((WIN_L * WIN_H) * (tmp->part + 1) / THREADS);
 	while (++start < end)
 	{
-		c.x = (float)(start % WIN_L - WIN_L / 2 + tmp->env->center.x)
+		c.x = (double)(start % WIN_L - WIN_L / 2 + tmp->env->center.x)
 			/ (tmp->env->zoom * (WIN_L / 4));
-		c.y = (float)(floor(start / WIN_L) - WIN_H / 2 + tmp->env->center.y)
+		c.y = (double)(floor(start / WIN_L) - WIN_H / 2 + tmp->env->center.y)
 			/ (tmp->env->zoom * (WIN_H / 4));
-		c.iter = 0;
 		c = ft_mand_th_iter(ft_cmpl_create_alg(0, 0), c);
 		if (c.iter == ITERATIONS)
 			tmp->env->simg[start] = 0;
 		else
 		{
-			c.iter = 1 + (int)floor(c.iter * (log(c.iter) / log (ITERATIONS)));
-			tmp->env->simg[start ] = tmp->env->color[(int)c.iter % (2 * NB_COL + 1)];
-/*			c.iter = c.iter + (log(log(ITERATIONS * ITERATIONS)) -
-							log(log(c.x * c.x + c.y * c.y))) / log(2);*/
+			c.iter = (int)floor(c.iter * (log(c.iter) / log(ITERATIONS)));
+			tmp->env->simg[start] = tmp->env->color[(int)c.iter % (2 * NB_COL)];
 		}
 	}
 	return (NULL);
 }
-
-/*
-void	ft_coloration(t_env *env)
-{
-	double hue;
-	int		i;
-	long int tot;
-	int		j;
-	int		hist[ITERATIONS * 100];
-
-	i = -1;
-	tot = 0;
-	ft_bzero((void*)hist, 100 * ITERATIONS * 4);
-	while (++i < WIN_L * WIN_H)
-		if (env->simg[i] < 100 * ITERATIONS)
-		{
-			tot += env->simg[i];
-			hist[env->simg[i]] += 1;
-		}
-	i = -1;
-	while (++i < WIN_L * WIN_H)
-	{
-		if (env->simg[i] < 100 * ITERATIONS)
-		{
-			hue = 0.0;
-			j = -1;
-			while (++j <= env->simg[i])
-				hue += sqrt(env->zoom) * 100 * hist[j] / (double)tot;
-			env->simg[i] = ft_interpol(
-					env->color[(int)floor(hue * NB_COL * 2)],
-					env->color[(int)(floor(hue * NB_COL * 2) + 1 ) % (NB_COL * 2)],
-					hue - floor(hue));
-		}
-		else
-			env->simg[i] = 0;
-	}
-}*/
 
 void	ft_mandel_mult(t_env *env)
 {
@@ -124,7 +80,8 @@ void	ft_mandel_mult(t_env *env)
 	{
 		env_i[i].part = i;
 		env_i[i].env = env;
-		pthread_create(&thread[i], NULL, ft_mand_th, &env_i[i]);
+		if (pthread_create(&thread[i], NULL, ft_mand_th, &env_i[i]))
+			return ;
 		++i;
 	}
 	i = 0;

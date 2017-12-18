@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 17:04:22 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/06 17:58:48 by esuits           ###   ########.fr       */
+/*   Updated: 2017/12/18 18:56:14 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cmpl		ft_cmpl_mod(t_cmpl z)
 	t_cmpl res;
 
 	res.y = 0;
-	res.x = hypot(z.x, z.y);
+	res.x = sqrt(hypot(z.x, z.y));
 	return (res);
 }
 
