@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 20:01:23 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 22:27:28 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/08 17:21:19 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	*ft_julia_ship_th(void *arg)
 	end = ((WIN_L * WIN_H) * (tmp->part + 1) / THREADS);
 	while (++start < end)
 	{
-		z.x = (float)(start % WIN_L - WIN_L / 2 + tmp->env->center.x)
+		z.x = (double)(start % WIN_L - WIN_L / 2 + tmp->env->center.x)
 			/ (tmp->env->zoom * (WIN_L / 4));
-		z.y = (float)(start / WIN_L - WIN_H / 2 + tmp->env->center.y)
+		z.y = (double)(start / WIN_L - WIN_H / 2 + tmp->env->center.y)
 			/ (tmp->env->zoom * (WIN_H / 4));
 		c = tmp->env->julia;
 		c = ft_ship(z, c);

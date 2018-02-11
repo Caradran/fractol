@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 22:28:56 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 17:39:58 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 22:35:49 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ t_mand	ft_mand_th_iter(t_cmpl z, t_mand c)
 	while (++c.iter < ITERATIONS)
 	{
 		if (z.x * z.x + z.y * z.y > 4)
+		{
+			c.x = z.x;
+			c.y = z.y;
 			return (c);
-		tmp = z.x * z.x - z.y * z.y + c.x;
+		}
+		tmp = c.x + z.x * z.x - z.y * z.y;
 		z.y = 2 * z.x * z.y + c.y;
 		z.x = tmp;
 	}
+	c.x = z.x;
+	c.y = z.y;
 	return (c);
 }
 

@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 16:13:13 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 22:29:11 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/22 14:26:59 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_zoom(t_env *env, int keycode)
 		env->center.y /= 1.1;
 		env->zoom /= 1.1;
 	}
-	ft_draw(env);
 }
 
 void	ft_deplace(t_env *env, int keycode, double x, double y)
@@ -64,21 +63,17 @@ int		ft_key(int keycode, void *params)
 		ft_zoom(tmp, keycode);
 	if (keycode == 49)
 		tmp->flag = !(tmp->flag);
-	if (keycode == 15 || keycode == 48)
+	if (keycode == 15 || keycode == 48 || keycode == 51)
 	{
 		if (keycode == 48)
-			tmp->frac = (tmp->frac + 1) % 8;
+			tmp->frac = (tmp->frac + 1) % 14;
+		if (keycode == 51)
+			tmp->frac = (tmp->frac + 13) % 14;
 		tmp->zoom = 1;
 		tmp->center = ft_cmpl_create_alg(0, 0);
-		ft_draw(tmp);
 	}
 	if (keycode <= 126 && keycode >= 123)
-	{
 		ft_deplace(tmp, keycode, 3000, 0);
-		ft_draw(tmp);
-	}
-	ft_putnbr(keycode);
-	ft_putchar(' ');
 	ft_changecol(keycode, tmp);
 	return (0);
 }
@@ -89,7 +84,8 @@ int		ft_mouse(int x, int y, void *params)
 
 	env = (t_env*)params;
 	if (!(env->flag) || (env->frac != 1 && env->frac != 3 && env->frac != 5
-				&& env->frac != 7))
+				&& env->frac != 7 && env->frac != 9 && env->frac != 11 &&
+				env->frac != 13))
 		return (0);
 	env->julia.x = (x - WIN_L / 2) / (float)(WIN_L / 2);
 	env->julia.y = (y - WIN_H / 2) / (float)(WIN_H / 2);
@@ -109,5 +105,6 @@ int		ft_mouse_key(int button, int x, int y, void *params)
 		ft_deplace(env, button, x, y);
 	else if (button == 4)
 		ft_deplace(env, button, x, y);
+	ft_draw(env);
 	return (0);
 }

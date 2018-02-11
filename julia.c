@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:12:29 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 21:40:34 by esuits           ###   ########.fr       */
+/*   Updated: 2018/02/06 22:33:18 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*ft_julia_th(void *arg)
 		if (c.iter != ITERATIONS)
 		{
 			c.iter = (int)floor(c.iter * (log(c.iter) / log(ITERATIONS)));
-			tmp->env->simg[start] = tmp->env->color[(int)c.iter % (2 * NB_COL)];
+			tmp->env->simg[start] = tmp->env->color[(int)(c.iter + c.x * c.y) % (2 * NB_COL)];
 		}
 	}
 	return (NULL);

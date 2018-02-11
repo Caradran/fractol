@@ -6,11 +6,24 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 18:48:30 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 22:14:14 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/02 20:38:40 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "frac.h"
+
+void	ft_draw2(t_env *env)
+{
+	if (env->frac == 10)
+		ft_celtic_mult(env);
+	if (env->frac == 11)
+		ft_julia_celtic_mult(env);
+	if (env->frac == 12)
+		ft_druid_mult(env);
+	if (env->frac == 13)
+		ft_julia_druid_mult(env);
+	mlx_put_image_to_window(NULL, env->win, (char *)env->pimg, 0, 0);
+}
 
 void	ft_draw(t_env *env)
 {
@@ -30,7 +43,11 @@ void	ft_draw(t_env *env)
 		ft_ship_mult(env);
 	if (env->frac == 7)
 		ft_julia_ship_mult(env);
-	mlx_put_image_to_window(NULL, env->win, (char *)env->pimg, 0, 0);
+	if (env->frac == 8)
+		ft_bird_mult(env);
+	if (env->frac == 9)
+		ft_julia_bird_mult(env);
+	ft_draw2(env);
 }
 
 int		ft_colorroll(void *params)
@@ -57,20 +74,12 @@ int		ft_colorroll(void *params)
 void	ft_changecol(int keycode, t_env *env)
 {
 	if (keycode == 18)
-		env->flagcol = (env->flagcol + 1) % 3;
+		env->flagcol = (env->flagcol + 1) % 2;
 	if (keycode == 19)
-	{
 		env->color = ft_rainbow(env->color);
-		ft_draw(env);
-	}
 	if (keycode == 24 && env->pow < 8)
-	{
 		env->pow++;
-		ft_draw(env);
-	}
 	if (keycode == 27 && env->pow > 1)
-	{
 		env->pow--;
-		ft_draw(env);
-	}
+	ft_draw(env);
 }

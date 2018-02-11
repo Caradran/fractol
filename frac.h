@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 11:55:02 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/18 22:00:14 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/22 14:49:40 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define WIN_L 1300
 # define WIN_H 1300
-# define ITERATIONS 64
+# define ITERATIONS 256
 # define NB_COL 32
 # define THREADS 256
 
@@ -75,11 +75,17 @@ void				ft_mand_pow_mult(t_env *env);
 void				ft_julia_perpendic_mult(t_env *env);
 void				ft_julia_ship_mult(t_env *env);
 void				ft_ship_mult(t_env *env);
+void				ft_julia_bird_mult(t_env *env);
+void				ft_bird_mult(t_env *env);
+void				ft_julia_celtic_mult(t_env *env);
+void				ft_celtic_mult(t_env *env);
+void				ft_julia_druid_mult(t_env *env);
+void				ft_druid_mult(t_env *env);
 t_mand				ft_mand_th_iter(t_cmpl a, t_mand b);
 t_mand				ft_mand_pow(t_cmpl a, t_mand b, int i);
 int					*ft_color_smooth(int a, int b);
 void				ft_memncat(void *dst, void *src, size_t d, size_t n);
-int					*ft_palette1(int c1, int c2, int c3);
+int					*ft_palette1(int c1, int c2, int c3, int *tab);
 t_cmpl				ft_cmpl_mult(t_cmpl a, t_cmpl b);
 t_cmpl				ft_cmpl_mod(t_cmpl z);
 t_cmpl				ft_cmpl_add(t_cmpl a, t_cmpl b);

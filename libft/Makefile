@@ -6,11 +6,11 @@
 #    By: esuits <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 12:30:35 by esuits            #+#    #+#              #
-#    Updated: 2017/11/16 15:02:44 by esuits           ###   ########.fr        #
+#    Updated: 2018/01/02 12:12:12 by esuits           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -Ofast
 
 NAME = libft.a
 

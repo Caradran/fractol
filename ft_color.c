@@ -6,7 +6,7 @@
 /*   By: esuits <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 17:48:30 by esuits            #+#    #+#             */
-/*   Updated: 2017/12/17 19:21:46 by esuits           ###   ########.fr       */
+/*   Updated: 2018/01/02 12:14:51 by esuits           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ int		*ft_color_smooth(int c1, int c2)
 	return (tab);
 }
 
-int		*ft_palette1(int color1, int color2, int color3)
+int		*ft_palette1(int color1, int color2, int color3, int *tab)
 {
 	int i;
 	int *tab1;
 	int *tab2;
-	int *tab;
 
 	i = -1;
-	if (!(tab = malloc(sizeof(int) * NB_COL * 2 + 1)))
-		return (NULL);
 	tab1 = ft_color_smooth(color1, color2);
 	tab2 = ft_color_smooth(color2, color3);
 	while (++i < NB_COL)
